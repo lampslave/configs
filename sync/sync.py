@@ -8,6 +8,7 @@ from os.path import expanduser, abspath, dirname, join, isdir, normpath, exists
 parser = argparse.ArgumentParser()
 parser.add_argument('list', type=argparse.FileType('r'))
 parser.add_argument('-u', '--username', required=True)
+parser.add_argument('-d', '--diff', action='store_true')
 parser.add_argument('-t', '--test', action='store_true')
 
 direction_args = parser.add_mutually_exclusive_group(required=True)
@@ -16,47 +17,48 @@ direction_args.add_argument('--git-to-fs', action='store_true')
 
 args = parser.parse_args()
 
-def sync(list):
-    gitroot = abspath(join(dirname(__file__), '..'))
-    userhome = expanduser('~' + args.username)
-    userhome_git = '/home/user'
+gitroot = abspath(join(dirname(__file__), '..'))
+userhome = expanduser('~' + args.username)
+userhome_git = '/home/user'
 
-    for item in list:
-        item = item.strip()
+diffcmd = 'colordiff' if exists('/usr/bin/colordiff') else 'diff'
+diffcmd += ' -r {0} {1}'
 
-        if not item:
-            continue
+for item in args.list:
+    item = item.strip()
 
-        item = normpath(item)
+    if not item:
+        continue
 
-        if item.startswith('~'):
-            itempath = item.replace('~', userhome, 1)
-            itempath_git = gitroot + item.replace('~', userhome_git, 1)
-        else:
-            itempath = item
-            itempath_git = gitroot + item
+    item = normpath(item)
 
-        if args.fs_to_git:
-            src = itempath
-            dest = itempath_git
-        elif args.git_to_fs:
-            src = itempath_git
-            dest = itempath
+    if item.startswith('~'):
+        itempath = item.replace('~', userhome, 1)
+        itempath_git = gitroot + item.replace('~', userhome_git, 1)
+    else:
+        itempath = item
+        itempath_git = gitroot + item
 
-        if isdir(src):
-            src += '/'
-            dest += '/'
+    if args.fs_to_git:
+        src = itempath
+        dest = itempath_git
+    elif args.git_to_fs:
+        src = itempath_git
+        dest = itempath
 
-        print(src, '>', dest)
+    if isdir(src):
+        src += '/'
+        dest += '/'
 
-        if not args.test:
-            parentdir = dirname(dest)
-            if not exists(parentdir):
-                os.system('mkdir -p {0}'.format(parentdir))
+    if args.diff:
+        os.system(diffcmd.format(src, dest))
+    elif args.test:
+        print('{0} > {1}'.format(src, dest))
+    else:
+        parentdir = dirname(dest)
+        if not exists(parentdir):
+            os.system('mkdir -p {0}'.format(parentdir))
+        os.system('rsync --times --recursive --delete {0} {1}'
+                  .format(src, dest))
 
-            os.system('rsync --times --recursive --delete {0} {1}'
-                      .format(src, dest))
-
-sync(args.list)
-
-print('Sync done!' if not args.test else 'Test done!')
+print('Done!')
