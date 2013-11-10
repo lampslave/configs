@@ -27,7 +27,7 @@ diffcmd += ' -r {0} {1}'
 for item in args.list:
     item = item.strip()
 
-    if not item:
+    if not item or item.startswith('#'):
         continue
 
     item = normpath(item)
@@ -50,10 +50,12 @@ for item in args.list:
         src += '/'
         dest += '/'
 
-    if args.diff:
+    print('{0} > {1}'.format(src, dest))
+
+    if args.test:
+        continue
+    elif args.diff:
         os.system(diffcmd.format(src, dest))
-    elif args.test:
-        print('{0} > {1}'.format(src, dest))
     else:
         parentdir = dirname(dest)
         if not exists(parentdir):
