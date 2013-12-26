@@ -26,4 +26,5 @@ TabActivityColor=#c8c828282929
 DropdownStatusIcon=FALSE
 DropdownWidth=100
 DropdownAlwaysShowTabs=FALSE
+MiscScrollAlternateScreen=TRUE
 
