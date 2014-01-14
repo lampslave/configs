@@ -2,14 +2,20 @@
 import os
 import sys
 import re
+import filecmp
 import argparse
-from os.path import expanduser, abspath, dirname, join, isdir, normpath, exists
+from os.path import (expanduser, abspath, dirname, join, isdir, isfile,
+                     normpath, exists)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('list', type=argparse.FileType('r'))
 parser.add_argument('-u', '--username', required=True)
-parser.add_argument('-d', '--diff', action='store_true')
-parser.add_argument('-t', '--test', action='store_true')
+
+action_args = parser.add_mutually_exclusive_group(required=True)
+action_args.add_argument('-t', '--test', action='store_true')
+action_args.add_argument('-d', '--diff', action='store_true')
+action_args.add_argument('-m', '--merge', action='store_true')
+action_args.add_argument('-s', '--sync', action='store_true')
 
 direction_args = parser.add_mutually_exclusive_group(required=True)
 direction_args.add_argument('--fs-to-git', action='store_true')
@@ -22,7 +28,15 @@ userhome = expanduser('~' + args.username)
 userhome_git = '/home/user'
 
 diffcmd = 'colordiff' if exists('/usr/bin/colordiff') else 'diff'
-diffcmd += ' -r {0} {1}'
+diffcmd += ' -r -N {0} {1}'
+
+mergetools = ['/usr/bin/meld', '/usr/bin/kdiff3']
+for tool in mergetools:
+    if exists(tool):
+        mergecmd = tool + ' {0} {1}'
+        break
+    elif tool == mergetools[-1]:
+        sys.exit('Please install meld or kdiff3.')
 
 for item in args.list:
     item = item.strip()
@@ -56,7 +70,12 @@ for item in args.list:
         continue
     elif args.diff:
         os.system(diffcmd.format(src, dest))
-    else:
+    elif args.merge:
+        # Avoid opening too many mergetool windows
+        if isfile(src) and filecmp.cmp(src, dest):
+            continue
+        os.system(mergecmd.format(src, dest))
+    elif args.sync:
         parentdir = dirname(dest)
         if not exists(parentdir):
             os.system('mkdir -p {0}'.format(parentdir))
