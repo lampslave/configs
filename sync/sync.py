@@ -60,7 +60,7 @@ for item in args.list:
         src = itempath_git
         dest = itempath
 
-    if isdir(src):
+    if isdir(src) or isdir(dest):
         src += '/'
         dest += '/'
 
@@ -72,7 +72,7 @@ for item in args.list:
         os.system(diffcmd.format(src, dest))
     elif args.merge:
         # Avoid opening too many mergetool windows
-        if isfile(src) and filecmp.cmp(src, dest):
+        if isfile(src) and isfile(dest) and filecmp.cmp(src, dest):
             continue
         os.system(mergecmd.format(src, dest))
     elif args.sync:
