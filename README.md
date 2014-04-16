@@ -2,7 +2,7 @@
 
 rsync  
 diff or colordiff  
-meld or kdiff3
+meld, kdiff3 or (g)vimdiff
 
 *Please check paths in the sync.py, some of it were hardcoded.*
 

@@ -30,13 +30,14 @@ userhome_git = '/home/user'
 diffcmd = 'colordiff' if exists('/usr/bin/colordiff') else 'diff'
 diffcmd += ' -r -N {0} {1}'
 
-mergetools = ['/usr/bin/meld', '/usr/bin/kdiff3']
+mergetools = ['/usr/bin/meld', '/usr/bin/kdiff3', '/usr/bin/gvimdiff',
+              '/usr/bin/vimdiff']
 for tool in mergetools:
     if exists(tool):
         mergecmd = tool + ' {0} {1}'
         break
     elif tool == mergetools[-1]:
-        sys.exit('Please install meld or kdiff3.')
+        sys.exit('Please install meld, kdiff3 or (g)vimdiff.')
 
 for item in args.list:
     item = item.strip()
