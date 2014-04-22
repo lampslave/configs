@@ -8,7 +8,7 @@
 XKBMODEL="pc105"
 XKBLAYOUT="us,ru"
 XKBVARIANT=","
-XKBOPTIONS="grp:alt_shift_toggle,grp_led:none"
+XKBOPTIONS="grp:alt_shift_toggle,grp_led:none,caps:none"
 
 # If you don't want to use the XKB layout on the console, you can
 # specify an alternative keymap.  Make sure it will be accessible
