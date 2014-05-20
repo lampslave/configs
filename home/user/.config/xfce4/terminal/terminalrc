@@ -28,4 +28,5 @@ DropdownWidth=100
 DropdownAlwaysShowTabs=FALSE
 MiscScrollAlternateScreen=TRUE
 ScrollingLines=10000
+ScrollingBar=TERMINAL_SCROLLBAR_NONE
 
