@@ -1,4 +1,9 @@
-PS1='\[\e[1;34m\][\D{%Y.%m.%d %H:%M}] \[\e[1;31m\]\u@\h\[\e[m\]\[\e[m\]\n\[\e[1;32m\][\w]\$\[\e[m\] '
+if [ $UID -eq 0 ]
+then
+	PS1='\[\e[1;34m\][\D{%Y.%m.%d %H:%M}] \[\e[1;31m\]\u@\h\[\e[m\]\[\e[m\]\n\[\e[1;32m\][\w]\$\[\e[m\] '
+else
+	PS1='\[\e[1;34m\][\D{%Y.%m.%d %H:%M}] \[\e[1;30m\]\u@\h\[\e[m\]\[\e[m\]\n\[\e[1;32m\][\w]\$\[\e[m\] '
+fi
 
 colors() {
 	local fgc bgc vals seq0
