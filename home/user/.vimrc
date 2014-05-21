@@ -58,3 +58,62 @@ function PythonFile()
 endfunction
 
 autocmd FileType python :call PythonFile()
+
+function PHPFile()
+
+"	highlight phpConstant
+"	highlight phpCoreConstant
+	highlight phpComment ctermfg=yellow cterm=none
+"	highlight phpDocTags
+"	highlight phpDocCustomTags
+	highlight phpException ctermfg=red cterm=bold
+	highlight phpBoolean ctermfg=black cterm=bold
+"	highlight phpStorageClass
+"	highlight phpSCKeyword
+"	highlight phpFCKeyword
+"	highlight phpStructure
+	highlight phpStringSingle ctermfg=green cterm=none
+	highlight phpStringDouble ctermfg=green cterm=none
+"	highlight phpBacktick
+	highlight phpNumber ctermfg=red cterm=bold
+	highlight phpFloat ctermfg=red cterm=bold
+	highlight phpMethods ctermfg=cyan cterm=bold
+	highlight phpFunctions ctermfg=cyan cterm=bold
+"	highlight phpBaselib
+	highlight phpRepeat ctermfg=magenta cterm=bold
+	highlight phpConditional ctermfg=magenta cterm=bold
+"	highlight phpLabel
+	highlight phpStatement ctermfg=red cterm=bold
+	highlight phpKeyword ctermfg=magenta cterm=bold
+"	highlight phpType
+"	highlight phpInclude
+	highlight phpDefine ctermfg=magenta cterm=bold
+"	highlight phpBackslashSequences
+"	highlight phpBackslashDoubleQuote
+"	highlight phpBackslashSingleQuote
+"	highlight phpParent
+"	highlight phpBrackets
+"	highlight phpIdentifierConst
+"	highlight phpParentError
+"	highlight phpOctalError
+"	highlight phpInterpSimpleError
+"	highlight phpInterpBogusDollarCurley
+"	highlight phpInterpDollarCurly1
+"	highlight phpInterpDollarCurly2
+"	highlight phpInterpSimpleBracketsInner
+"	highlight phpInterpSimpleCurly
+"	highlight phpInterpVarname
+"	highlight phpTodo
+"	highlight phpDocTodo
+"	highlight phpMemberSelector
+"	highlight phpIntVar
+"	highlight phpEnvVar
+	highlight phpOperator ctermfg=red cterm=bold
+	highlight phpVarSelector ctermfg=blue cterm=none
+"	highlight phpRelation
+	highlight phpIdentifier ctermfg=blue cterm=none
+	highlight phpIdentifierSimply ctermfg=blue cterm=bold
+
+endfunction
+
+autocmd FileType php :call PHPFile()
