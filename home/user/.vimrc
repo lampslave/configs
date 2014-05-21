@@ -43,16 +43,16 @@ function PythonFile()
 	highlight pythonString ctermfg=green cterm=none
 	highlight pythonRawString ctermfg=green cterm=none
 "	highlight pythonEscape
-	highlight pythonNumber ctermfg=blue cterm=bold
+	highlight pythonNumber ctermfg=red cterm=bold
 	highlight pythonBuiltin ctermfg=cyan cterm=bold
-	highlight pythonExceptions ctermfg=blue cterm=bold
+	highlight pythonExceptions ctermfg=red cterm=bold
 "	highlight pythonSpaceError
 "	highlight pythonDoctest
 "	highlight pythonDoctestValue
 
 	syn keyword pythonBool False True None
 	syn keyword pythonSelf self
-	highlight pythonBool ctermfg=blue cterm=bold
+	highlight pythonBool ctermfg=black cterm=bold
 	highlight pythonSelf ctermfg=magenta cterm=bold
 
 endfunction
