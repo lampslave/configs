@@ -64,14 +64,14 @@ function PHPFile()
 "	highlight phpConstant
 "	highlight phpCoreConstant
 	highlight phpComment ctermfg=yellow cterm=none
-"	highlight phpDocTags
-"	highlight phpDocCustomTags
+	highlight phpDocTags ctermfg=magenta cterm=bold
+	highlight phpDocCustomTags ctermfg=magenta cterm=bold
 	highlight phpException ctermfg=red cterm=bold
 	highlight phpBoolean ctermfg=black cterm=bold
-"	highlight phpStorageClass
+	highlight phpStorageClass ctermfg=red cterm=bold
 "	highlight phpSCKeyword
 "	highlight phpFCKeyword
-	highlight phpStructure ctermfg=magenta cterm=bold
+	highlight phpStructure ctermfg=red cterm=bold
 	highlight phpStringSingle ctermfg=green cterm=none
 	highlight phpStringDouble ctermfg=green cterm=none
 "	highlight phpBacktick
@@ -82,12 +82,12 @@ function PHPFile()
 "	highlight phpBaselib
 	highlight phpRepeat ctermfg=magenta cterm=bold
 	highlight phpConditional ctermfg=magenta cterm=bold
-"	highlight phpLabel
+	highlight phpLabel ctermfg=magenta cterm=bold
 	highlight phpStatement ctermfg=red cterm=bold
 	highlight phpKeyword ctermfg=magenta cterm=bold
-	highlight phpType ctermfg=magenta cterm=bold
-	highlight phpInclude ctermfg=red cterm=bold
-	highlight phpDefine ctermfg=magenta cterm=bold
+	highlight phpType ctermfg=black cterm=bold
+	highlight phpInclude ctermfg=magenta cterm=bold
+	highlight phpDefine ctermfg=red cterm=bold
 "	highlight phpBackslashSequences
 "	highlight phpBackslashDoubleQuote
 "	highlight phpBackslashSingleQuote
@@ -110,10 +110,10 @@ function PHPFile()
 "	highlight phpEnvVar
 	highlight phpOperator ctermfg=red cterm=bold
 	highlight phpVarSelector ctermfg=blue cterm=bold
-"	highlight phpRelation
+	highlight phpRelation ctermfg=red cterm=none
 	highlight phpIdentifier ctermfg=blue cterm=bold
-	highlight phpIdentifierSimply ctermfg=blue cterm=bold
-	highlight phpComparison ctermfg=red cterm=bold
+"	highlight phpIdentifierSimply
+	highlight phpComparison ctermfg=blue cterm=bold
 
 endfunction
 
