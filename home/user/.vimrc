@@ -43,8 +43,8 @@ function PythonFile()
 	highlight pythonString ctermfg=green cterm=none
 	highlight pythonRawString ctermfg=green cterm=none
 "	highlight pythonEscape
-	highlight pythonNumber ctermfg=red cterm=bold
-	highlight pythonBuiltin ctermfg=cyan cterm=bold
+	highlight pythonNumber ctermfg=blue cterm=bold
+	highlight pythonBuiltin ctermfg=black cterm=none
 	highlight pythonExceptions ctermfg=red cterm=bold
 "	highlight pythonSpaceError
 "	highlight pythonDoctest
@@ -52,7 +52,7 @@ function PythonFile()
 
 	syn keyword pythonBool False True None
 	syn keyword pythonSelf self
-	highlight pythonBool ctermfg=black cterm=bold
+	highlight pythonBool ctermfg=blue cterm=bold
 	highlight pythonSelf ctermfg=magenta cterm=bold
 
 endfunction
@@ -106,8 +106,8 @@ function PHPFile()
 "	highlight phpTodo
 "	highlight phpDocTodo
 	highlight phpMemberSelector ctermfg=black cterm=none
-"	highlight phpIntVar
-"	highlight phpEnvVar
+	highlight phpIntVar ctermfg=cyan cterm=bold
+	highlight phpEnvVar ctermfg=cyan cterm=bold
 	highlight phpOperator ctermfg=red cterm=bold
 	highlight phpVarSelector ctermfg=blue cterm=bold
 	highlight phpRelation ctermfg=red cterm=none
