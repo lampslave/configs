@@ -36,23 +36,29 @@ function PythonFile()
 	highlight pythonOperator ctermfg=blue cterm=bold
 	highlight pythonException ctermfg=blue cterm=bold
 	highlight pythonInclude ctermfg=blue cterm=bold
-	highlight pythonDecorator ctermfg=red cterm=none
-	highlight pythonFunction ctermfg=red cterm=bold
+	highlight pythonFunction ctermfg=black cterm=bold
 	highlight pythonComment ctermfg=yellow cterm=none
 "	highlight pythonTodo
 	highlight pythonString ctermfg=green cterm=none
 	highlight pythonRawString ctermfg=green cterm=none
-"	highlight pythonEscape
+	highlight pythonEscape ctermfg=blue cterm=bold
 	highlight pythonNumber ctermfg=blue cterm=bold
-	highlight pythonBuiltin ctermfg=black cterm=none
-	highlight pythonExceptions ctermfg=red cterm=bold
+	highlight pythonBuiltin ctermfg=blue cterm=bold
+	highlight pythonExceptions ctermfg=black cterm=bold
 "	highlight pythonSpaceError
 "	highlight pythonDoctest
 "	highlight pythonDoctestValue
 
+	syn region pythonDocstring start='\(\'\|\"\)\{3}' end='\(\'\|\"\)\{3}'
+	highlight pythonDocstring ctermfg=yellow cterm=none
+
+	syn match pythonDecorator '^@\w*'
+	highlight pythonDecorator ctermfg=cyan cterm=bold
+
 	syn keyword pythonBool False True None
-	syn keyword pythonSelf self
 	highlight pythonBool ctermfg=blue cterm=bold
+
+	syn keyword pythonSelf self
 	highlight pythonSelf ctermfg=magenta cterm=bold
 
 endfunction

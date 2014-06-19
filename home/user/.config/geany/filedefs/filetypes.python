@@ -2,18 +2,18 @@
 [styling]
 # foreground;background;bold;italic
 default=0x333333;0xffffff;false;false
-commentline=0x8e908c;0xffffff;false;false
+commentline=0x808080;0xffffff;false;false
 number=0x4271ae;0xffffff;true;false
 string=0x718c00;0xffffff;false;false
 character=0x718c00;0xffffff;false;false
 word=0x4271ae;0xffffff;true;false
-triple=0x718c00;0xffffff;false;false
-tripledouble=0x718c00;0xffffff;false;false
-classname=0xc82829;0xffffff;true;false
-defname=0xc82829;0xffffff;true;false
-operator=0x8959a8;0xffffff;false;false
+triple=0x808080;0xffffff;false;false
+tripledouble=0x808080;0xffffff;false;false
+classname=0x333333;0xffffff;true;false
+defname=0x333333;0xffffff;true;false
+operator=0x333333;0xffffff;false;false
 identifier=0x333333;0xffffff;false;false
-commentblock=0x8e908c;0xffffff;false;false
+commentblock=0x808080;0xffffff;false;false
 stringeol=0x718c00;0xffffff;false;false
 word2=0x8959a8;0xffffff;true;false
 decorator=0x3e999f;0xffffff;true;false
