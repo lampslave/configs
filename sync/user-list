@@ -2,6 +2,7 @@
 ~/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
 ~/.config/xfce4/terminal/terminalrc
 ~/.config/mc/mc.keymap
+~/.local/share/applications/VIM.desktop
 ~/.local/share/mc/skins/default.ini
 ~/.config/geany/
 ~/.vimrc
