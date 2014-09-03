@@ -31,3 +31,5 @@ colors() {
 		echo; echo
 	done
 }
+
+alias glog='git log --graph --decorate --all'
