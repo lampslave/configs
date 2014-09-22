@@ -6,7 +6,6 @@ set shiftwidth=4
 set noexpandtab
 set smarttab
 
-set autoindent
 set cindent
 
 set hlsearch
@@ -20,13 +19,15 @@ set number
 highlight LineNr ctermfg=black ctermbg=lightgray
 
 highlight ColorColumn ctermbg=lightgray
+highlight Pmenu ctermbg=lightgray
+highlight PmenuSel cterm=bold
+"highlight PmenuSbar
+highlight PmenuThumb ctermbg=cyan
 
 filetype on
-
 syntax on
 
 function PythonFile()
-
 	setlocal expandtab
 	setlocal colorcolumn=80
 
@@ -60,13 +61,10 @@ function PythonFile()
 
 	syn keyword pythonSelf self
 	highlight pythonSelf ctermfg=magenta cterm=bold
-
 endfunction
-
 autocmd FileType python :call PythonFile()
 
 function PHPFile()
-
 "	highlight phpConstant
 "	highlight phpCoreConstant
 	highlight phpComment ctermfg=yellow cterm=none
@@ -120,7 +118,22 @@ function PHPFile()
 	highlight phpIdentifier ctermfg=blue cterm=bold
 "	highlight phpIdentifierSimply
 	highlight phpComparison ctermfg=blue cterm=bold
-
 endfunction
-
 autocmd FileType php :call PHPFile()
+
+" http://stackoverflow.com/a/18486073
+function! Auto_complete_string()
+	if pumvisible()
+		return "\<C-n>"
+	else
+		return "\<C-x>\<C-o>\<C-r>=Auto_complete_opened()\<CR>"
+	end
+endfunction
+function! Auto_complete_opened()
+	if pumvisible()
+		return "\<Down>"
+	end
+	return ""
+endfunction
+inoremap <expr> <Nul> Auto_complete_string()
+inoremap <expr> <C-Space> Auto_complete_string()
