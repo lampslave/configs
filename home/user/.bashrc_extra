@@ -33,3 +33,6 @@ colors() {
 }
 
 alias glog='git log --graph --decorate --all'
+
+alias grepall='/bin/grep -n'
+alias grep='grepall --exclude-dir=.git --exclude-dir=.idea'
