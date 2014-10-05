@@ -5,5 +5,6 @@
 ~/.local/share/applications/VIM.desktop
 ~/.local/share/mc/skins/default.ini
 ~/.config/geany/
+~/.vim/
 ~/.vimrc
 ~/.bashrc_extra

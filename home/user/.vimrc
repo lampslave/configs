@@ -19,9 +19,10 @@ set number
 highlight LineNr ctermfg=black ctermbg=lightgray
 
 highlight ColorColumn ctermbg=lightgray
+highlight MatchParen ctermbg=brown ctermfg=white cterm=bold
 highlight Pmenu ctermbg=lightgray
+highlight PmenuSbar ctermbg=lightgray
 highlight PmenuSel cterm=bold
-"highlight PmenuSbar
 highlight PmenuThumb ctermbg=cyan
 
 filetype on
@@ -38,12 +39,12 @@ function PythonFile()
 	highlight pythonException ctermfg=blue cterm=bold
 	highlight pythonInclude ctermfg=blue cterm=bold
 	highlight pythonFunction ctermfg=black cterm=bold
-	highlight pythonComment ctermfg=yellow cterm=none
-"	highlight pythonTodo
+	highlight pythonComment ctermfg=cyan cterm=none
+	highlight pythonTodo ctermfg=red cterm=bold
 	highlight pythonString ctermfg=green cterm=none
 	highlight pythonRawString ctermfg=green cterm=none
-	highlight pythonEscape ctermfg=blue cterm=bold
-	highlight pythonNumber ctermfg=blue cterm=bold
+	highlight pythonEscape ctermfg=brown cterm=bold
+	highlight pythonNumber ctermfg=blue cterm=none
 	highlight pythonBuiltin ctermfg=blue cterm=bold
 	highlight pythonExceptions ctermfg=black cterm=bold
 "	highlight pythonSpaceError
@@ -51,89 +52,16 @@ function PythonFile()
 "	highlight pythonDoctestValue
 
 	syn region pythonDocstring start='\(\'\|\"\)\{3}' end='\(\'\|\"\)\{3}'
-	highlight pythonDocstring ctermfg=yellow cterm=none
+	highlight pythonDocstring ctermfg=cyan cterm=none
 
 	syn match pythonDecorator '^@\w*'
 	highlight pythonDecorator ctermfg=cyan cterm=bold
-
-	syn keyword pythonBool False True None
-	highlight pythonBool ctermfg=blue cterm=bold
 
 	syn keyword pythonSelf self
 	highlight pythonSelf ctermfg=magenta cterm=bold
 endfunction
 autocmd FileType python :call PythonFile()
 
-function PHPFile()
-"	highlight phpConstant
-"	highlight phpCoreConstant
-	highlight phpComment ctermfg=yellow cterm=none
-	highlight phpDocTags ctermfg=magenta cterm=bold
-	highlight phpDocCustomTags ctermfg=magenta cterm=bold
-	highlight phpException ctermfg=red cterm=bold
-	highlight phpBoolean ctermfg=black cterm=bold
-	highlight phpStorageClass ctermfg=red cterm=bold
-"	highlight phpSCKeyword
-"	highlight phpFCKeyword
-	highlight phpStructure ctermfg=red cterm=bold
-	highlight phpStringSingle ctermfg=green cterm=none
-	highlight phpStringDouble ctermfg=green cterm=none
-"	highlight phpBacktick
-	highlight phpNumber ctermfg=red cterm=bold
-	highlight phpFloat ctermfg=red cterm=bold
-	highlight phpMethods ctermfg=cyan cterm=bold
-	highlight phpFunctions ctermfg=cyan cterm=bold
-"	highlight phpBaselib
-	highlight phpRepeat ctermfg=magenta cterm=bold
-	highlight phpConditional ctermfg=magenta cterm=bold
-	highlight phpLabel ctermfg=magenta cterm=bold
-	highlight phpStatement ctermfg=red cterm=bold
-	highlight phpKeyword ctermfg=magenta cterm=bold
-	highlight phpType ctermfg=black cterm=bold
-	highlight phpInclude ctermfg=magenta cterm=bold
-	highlight phpDefine ctermfg=red cterm=bold
-"	highlight phpBackslashSequences
-"	highlight phpBackslashDoubleQuote
-"	highlight phpBackslashSingleQuote
-	highlight phpParent ctermfg=black cterm=none
-"	highlight phpBrackets
-"	highlight phpIdentifierConst
-"	highlight phpParentError
-"	highlight phpOctalError
-"	highlight phpInterpSimpleError
-"	highlight phpInterpBogusDollarCurley
-"	highlight phpInterpDollarCurly1
-"	highlight phpInterpDollarCurly2
-"	highlight phpInterpSimpleBracketsInner
-"	highlight phpInterpSimpleCurly
-"	highlight phpInterpVarname
-"	highlight phpTodo
-"	highlight phpDocTodo
-	highlight phpMemberSelector ctermfg=black cterm=none
-	highlight phpIntVar ctermfg=cyan cterm=bold
-	highlight phpEnvVar ctermfg=cyan cterm=bold
-	highlight phpOperator ctermfg=red cterm=bold
-	highlight phpVarSelector ctermfg=blue cterm=bold
-	highlight phpRelation ctermfg=red cterm=none
-	highlight phpIdentifier ctermfg=blue cterm=bold
-"	highlight phpIdentifierSimply
-	highlight phpComparison ctermfg=blue cterm=bold
-endfunction
-autocmd FileType php :call PHPFile()
-
-" http://stackoverflow.com/a/18486073
-function! Auto_complete_string()
-	if pumvisible()
-		return "\<C-n>"
-	else
-		return "\<C-x>\<C-o>\<C-r>=Auto_complete_opened()\<CR>"
-	end
-endfunction
-function! Auto_complete_opened()
-	if pumvisible()
-		return "\<Down>"
-	end
-	return ""
-endfunction
-inoremap <expr> <Nul> Auto_complete_string()
-inoremap <expr> <C-Space> Auto_complete_string()
+let g:user_emmet_expandabbr_key = '<Nul>'
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
