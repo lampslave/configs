@@ -4,40 +4,44 @@ import sys
 import re
 import filecmp
 import argparse
-from os.path import (expanduser, abspath, dirname, join, isdir, isfile,
-                     normpath, exists)
+from os.path import abspath, join, expanduser, exists, isdir, dirname, \
+    isfile, normpath
+from getpass import getuser
 
 parser = argparse.ArgumentParser()
 parser.add_argument('list', type=argparse.FileType('r'))
-parser.add_argument('-u', '--username', required=True)
-
-action_args = parser.add_mutually_exclusive_group(required=True)
-action_args.add_argument('-t', '--test', action='store_true')
+action_args = parser.add_mutually_exclusive_group()
 action_args.add_argument('-d', '--diff', action='store_true')
 action_args.add_argument('-m', '--merge', action='store_true')
-action_args.add_argument('-s', '--sync', action='store_true')
-
-direction_args = parser.add_mutually_exclusive_group(required=True)
-direction_args.add_argument('--fs-to-git', action='store_true')
-direction_args.add_argument('--git-to-fs', action='store_true')
-
+parser.add_argument('--tool', required=False)
 args = parser.parse_args()
 
-gitroot = abspath(join(dirname(__file__), '..'))
-userhome = expanduser('~' + args.username)
-userhome_git = '/home/user'
+git_root = abspath(join(dirname(__file__), '..'))
+git_home = '/home/user'
+
+fs_home = expanduser('~' + getuser())
 
 diffcmd = 'colordiff' if exists('/usr/bin/colordiff') else 'diff'
-diffcmd += ' -r -N {0} {1}'
+diffcmd += ' -r -N "{}" "{}"'
+if args.tool is not None:
+    diffcmd = '{} "{{}}" "{{}}"'.format(args.tool)
 
-mergetools = ['/usr/bin/meld', '/usr/bin/kdiff3', '/usr/bin/gvimdiff',
-              '/usr/bin/vimdiff']
-for tool in mergetools:
-    if exists(tool):
-        mergecmd = tool + ' {0} {1}'
-        break
-    elif tool == mergetools[-1]:
-        sys.exit('Please install meld, kdiff3 or (g)vimdiff.')
+if args.tool is not None:
+    mergecmd = args.tool
+elif exists('/usr/bin/meld'):
+    mergecmd = 'meld'
+elif exists('/usr/bin/kdiff3'):
+    mergecmd = 'kdiff3'
+else:
+    print('Use --tool to specify merge application')
+mergecmd += ' "{}" "{}"'
+
+
+def mkparentdir(item):
+    parentdir = dirname(item)
+    if not exists(parentdir):
+        os.system('mkdir -p "{}"'.format(parentdir))
+
 
 for item in args.list:
     item = item.strip()
@@ -48,39 +52,28 @@ for item in args.list:
     item = normpath(item)
 
     if item.startswith('~'):
-        itempath = item.replace('~', userhome, 1)
-        itempath_git = gitroot + item.replace('~', userhome_git, 1)
+        item_fs = item.replace('~', fs_home, 1)
+        item_git = git_root + item.replace('~', git_home, 1)
     else:
-        itempath = item
-        itempath_git = gitroot + item
+        item_fs = item
+        item_git = git_root + item
 
-    if args.fs_to_git:
-        src = itempath
-        dest = itempath_git
-    elif args.git_to_fs:
-        src = itempath_git
-        dest = itempath
+    if isdir(item_fs) or isdir(item_git):
+        item_fs += '/'
+        item_git += '/'
 
-    if isdir(src) or isdir(dest):
-        src += '/'
-        dest += '/'
+    mkparentdir(item_fs)
+    mkparentdir(item_git)
 
-    print('{0} > {1}'.format(src, dest))
+    left = item_fs
+    right = item_git
 
-    if args.test:
-        continue
-    elif args.diff:
-        os.system(diffcmd.format(src, dest))
-    elif args.merge:
-        # Avoid opening too many mergetool windows
-        if isfile(src) and isfile(dest) and filecmp.cmp(src, dest):
+    print('{} <||> {}'.format(left, right))
+
+    if args.diff or args.merge:
+        if isfile(left) and isfile(right) and filecmp.cmp(left, right):
             continue
-        os.system(mergecmd.format(src, dest))
-    elif args.sync:
-        parentdir = dirname(dest)
-        if not exists(parentdir):
-            os.system('mkdir -p {0}'.format(parentdir))
-        os.system('rsync --times --recursive --delete {0} {1}'
-                  .format(src, dest))
-
-print('Done!')
+        elif args.diff:
+            os.system(diffcmd.format(left, right))
+        elif args.merge:
+            os.system(mergecmd.format(left, right))
