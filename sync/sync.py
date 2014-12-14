@@ -19,7 +19,7 @@ git_home = '/home/user'
 
 fs_home = expanduser('~' + getuser())
 
-compare_cmd = ''
+compare_cmd = None
 if args.diff:
     compare_cmd = 'colordiff' if exists('/usr/bin/colordiff') else 'diff'
     compare_cmd += ' -r -N'
@@ -28,10 +28,10 @@ if args.merge:
         compare_cmd = 'meld'
     elif exists('/usr/bin/kdiff3'):
         compare_cmd = 'kdiff3'
-    else:
-        raise Exception('Use --tool to specify merge application')
 if args.tool:
     compare_cmd = args.tool
+if compare_cmd is None:
+    raise Exception('Use --tool to specify diff/merge application')
 compare_cmd += ' "{}" "{}"'
 
 
