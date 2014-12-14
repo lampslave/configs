@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 import os
-import sys
-import re
 import filecmp
 import argparse
 from os.path import abspath, join, expanduser, exists, isdir, dirname, \
@@ -21,20 +19,20 @@ git_home = '/home/user'
 
 fs_home = expanduser('~' + getuser())
 
-diffcmd = 'colordiff' if exists('/usr/bin/colordiff') else 'diff'
-diffcmd += ' -r -N "{}" "{}"'
-if args.tool is not None:
-    diffcmd = '{} "{{}}" "{{}}"'.format(args.tool)
-
-if args.tool is not None:
-    mergecmd = args.tool
-elif exists('/usr/bin/meld'):
-    mergecmd = 'meld'
-elif exists('/usr/bin/kdiff3'):
-    mergecmd = 'kdiff3'
-else:
-    print('Use --tool to specify merge application')
-mergecmd += ' "{}" "{}"'
+compare_cmd = ''
+if args.diff:
+    compare_cmd = 'colordiff' if exists('/usr/bin/colordiff') else 'diff'
+    compare_cmd += ' -r -N'
+if args.merge:
+    if exists('/usr/bin/meld'):
+        compare_cmd = 'meld'
+    elif exists('/usr/bin/kdiff3'):
+        compare_cmd = 'kdiff3'
+    else:
+        raise Exception('Use --tool to specify merge application')
+if args.tool:
+    compare_cmd = args.tool
+compare_cmd += ' "{}" "{}"'
 
 
 def mkparentdir(item):
@@ -73,7 +71,4 @@ for item in args.list:
     if args.diff or args.merge:
         if isfile(left) and isfile(right) and filecmp.cmp(left, right):
             continue
-        elif args.diff:
-            os.system(diffcmd.format(left, right))
-        elif args.merge:
-            os.system(mergecmd.format(left, right))
+        os.system(compare_cmd.format(left, right))
