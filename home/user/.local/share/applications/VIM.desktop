@@ -2,7 +2,7 @@
 Name=Vi IMproved
 Comment=Powerful text editor with scripting functions and macro recorder
 MimeType=text/plain;text/x-python;
-Exec=xfce4-terminal -e "vim %F" --hide-menubar -I gvim
+Exec=xfce4-terminal -e "vim -p %F" --hide-menubar -I gvim
 Icon=gvim
 Terminal=false
 Type=Application

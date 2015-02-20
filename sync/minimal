@@ -1,4 +1,5 @@
 ~/.config/mc/mc.keymap
 ~/.local/share/mc/skins/default.ini
+~/.vim/
 ~/.vimrc
 ~/.bashrc_extra

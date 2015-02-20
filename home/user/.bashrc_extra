@@ -5,6 +5,7 @@ else
 	PS1='\[\e[1;34m\][\D{%Y.%m.%d %H:%M}]\[\e[m\] \[\e[1;30m\]\u@\h $(hostname -I)\[\e[m\]\n\[\e[1;32m\][\w]\$\[\e[m\] '
 fi
 
+
 colors() {
 	local fgc bgc vals seq0
 
@@ -32,7 +33,14 @@ colors() {
 	done
 }
 
+
+alias vi='vim -p'
+alias vim='vim -p'
+
 alias glog='git log --graph --decorate --all'
 
-alias grepall='/bin/grep -n'
-alias grep='grepall --exclude=\*\.pyc --exclude-dir=\.git --exclude-dir=\.idea --exclude-dir=compress_tmp --exclude-dir=migrations'
+alias grep='/bin/grep -n --color'
+alias greppy='grep --include="*.py" --exclude-dir=migrations'
+alias grepjs='grep --include="*.js" --exclude-dir=compress_tmp'
+alias grephtml='grep --include="*.html"'
+alias grepcss='grep --include="*.css" --exclude-dir=compress_tmp'

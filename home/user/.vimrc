@@ -3,15 +3,13 @@ set fileencodings=utf-8,cp1251
 
 set tabstop=4
 set shiftwidth=4
-set noexpandtab
+set expandtab
 set smarttab
 
 set mouse=a
 
-set backupdir=/tmp
-set directory=/tmp
-
-set cindent
+set autoindent
+set smartindent
 
 set hlsearch
 set ignorecase
@@ -20,6 +18,7 @@ filetype on
 syntax on
 
 let html_no_rendering=1
+
 
 set listchars=tab:\→\ ,trail:.,extends:\⇄\,precedes:\⇄\,nbsp:.
 set list
@@ -39,6 +38,7 @@ highlight PmenuThumb ctermbg=cyan
 
 highlight Todo ctermbg=none ctermfg=red cterm=bold
 
+
 highlight pythonStatement ctermfg=blue cterm=bold
 highlight pythonConditional ctermfg=blue cterm=bold
 highlight pythonRepeat ctermfg=blue cterm=bold
@@ -57,6 +57,12 @@ highlight pythonExceptions ctermfg=black cterm=bold
 "highlight pythonSpaceError
 "highlight pythonDoctest
 "highlight pythonDoctestValue
+
+" Custom
+highlight pythonDocstring ctermfg=cyan cterm=none
+highlight pythonDecorator ctermfg=cyan cterm=bold
+highlight pythonSelf ctermfg=magenta cterm=bold
+
 
 highlight htmlTag ctermfg=magenta cterm=none
 highlight htmlEndTag ctermfg=magenta cterm=none
@@ -87,6 +93,7 @@ highlight htmlCommentPart ctermfg=cyan cterm=none
 "highlight htmlCssStyleComment
 "highlight htmlCssDefinition
 
+
 highlight djangoTagBlock ctermfg=black cterm=none
 highlight djangoVarBlock ctermfg=black cterm=none
 highlight djangoStatement ctermfg=black cterm=bold
@@ -98,6 +105,7 @@ highlight djangoStatement ctermfg=black cterm=bold
 "highlight djangoComment
 "highlight djangoComBlock
 "highlight djangoTodo
+
 
 highlight javaScriptComment ctermfg=cyan cterm=none
 highlight javaScriptLineComment ctermfg=cyan cterm=none
@@ -131,6 +139,7 @@ highlight javaScriptDeprecated ctermfg=red cterm=none
 "highlight javaScriptReserved
 "highlight javaScriptDebug
 "highlight javaScriptConstant
+
 
 highlight cssComment ctermfg=cyan cterm=none
 highlight cssTagName ctermfg=green cterm=none
@@ -178,27 +187,25 @@ highlight cssUnitDecorators ctermfg=black cterm=none
 "highlight cssNoise Noise
 highlight atKeyword ctermfg=black cterm=bold
 
+
 function PythonFile()
-	setlocal expandtab
-	setlocal colorcolumn=80
-	syn region pythonDocstring start='\(\'\|\"\)\{3}' end='\(\'\|\"\)\{3}'
-	highlight pythonDocstring ctermfg=cyan cterm=none
-	syn match pythonDecorator '^@\w*'
-	highlight pythonDecorator ctermfg=cyan cterm=bold
-	syn keyword pythonSelf self
-	highlight pythonSelf ctermfg=magenta cterm=bold
+    setlocal expandtab
+    setlocal colorcolumn=80
+    setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class,with   
+    syn region pythonDocstring start="'''" end="'''"
+    syn region pythonDocstring start='"""' end='"""'
+    syn match pythonDecorator '@[a-zA-Z0-9_]\+'
+    syn keyword pythonSelf self cls
 endfunction
 autocmd FileType python :call PythonFile()
 
-let g:user_emmet_expandabbr_key = '<Nul>'
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
 
 " Identify the syntax highlighting group used at the cursor
 " http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 
 " Automatically set paste mode when pasting in insert mode
 " https://coderwall.com/p/if9mda
@@ -218,6 +225,7 @@ function! XTermPasteBegin()
   return ""
 endfunction
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 " http://stackoverflow.com/a/99186/2694042
