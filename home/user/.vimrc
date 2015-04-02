@@ -6,13 +6,13 @@ set shiftwidth=4
 set expandtab
 set smarttab
 
-set mouse=a
-
 set autoindent
 set smartindent
 
 set hlsearch
 set ignorecase
+
+set tabpagemax=100
 
 filetype on
 syntax on
@@ -98,7 +98,7 @@ highlight djangoTagBlock ctermfg=black cterm=none
 highlight djangoVarBlock ctermfg=black cterm=none
 highlight djangoStatement ctermfg=black cterm=bold
 "highlight djangoFilter
-"highlight djangoArgument
+highlight djangoArgument ctermfg=yellow cterm=none
 "highlight djangoTagError
 "highlight djangoVarError
 "highlight djangoError
@@ -191,13 +191,20 @@ highlight atKeyword ctermfg=black cterm=bold
 function PythonFile()
     setlocal expandtab
     setlocal colorcolumn=80
-    setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class,with   
+    setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class,with
     syn region pythonDocstring start="'''" end="'''"
     syn region pythonDocstring start='"""' end='"""'
     syn match pythonDecorator '@[a-zA-Z0-9_]\+'
     syn keyword pythonSelf self cls
 endfunction
 autocmd FileType python :call PythonFile()
+
+
+function DjangoTemplate()
+    setlocal expandtab
+    syn keyword djangoStatement contained static thumbnail
+endfunction
+autocmd FileType htmldjango :call DjangoTemplate()
 
 
 " Identify the syntax highlighting group used at the cursor
@@ -230,3 +237,9 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 " http://stackoverflow.com/a/99186/2694042
 nnoremap <silent> <C-l> :nohl<CR><C-l>
+
+
+" Multiline search
+" https://www.linux.org.ru/forum/general/11410967
+nnoremap <leader>* yip/<c-r>=substitute(@", '<c-v><c-j>', '\\n', 'g')<cr><cr>
+cnoremap <CR> <C-\>esubstitute(getcmdline(), '<C-v><C-m>', '\\n', 'g')<CR><CR>
