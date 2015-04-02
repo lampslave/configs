@@ -34,6 +34,11 @@ colors() {
 }
 
 
+gi() {
+	nohup geany "$@" > /dev/null 2>&1 &
+}
+
+
 alias vi='vim -p'
 alias vim='vim -p'
 
