@@ -34,6 +34,9 @@ colors() {
 }
 
 
+export PYTHONSTARTUP=~/.pythonrc.py
+
+
 gi() {
 	nohup geany "$@" > /dev/null 2>&1 &
 }
@@ -45,7 +48,9 @@ alias vim='vim -p'
 alias glog='git log --graph --decorate --all'
 
 alias grep='/bin/grep -n --color'
+alias greptxt='grep --include="*.txt"'
 alias greppy='grep --include="*.py" --exclude-dir=migrations'
 alias grepjs='grep --include="*.js" --exclude-dir=compress_tmp'
 alias grephtml='grep --include="*.html"'
 alias grepcss='grep --include="*.css" --exclude-dir=compress_tmp'
+alias grepless='grep --include="*.less"'
