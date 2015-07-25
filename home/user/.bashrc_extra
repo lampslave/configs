@@ -47,7 +47,7 @@ alias vim='vim -p'
 
 alias glog='git log --graph --decorate --all'
 
-alias grep='/bin/grep -n --color'
+alias grep='/bin/grep --color'
 alias greptxt='grep --include="*.txt"'
 alias greppy='grep --include="*.py" --exclude-dir=migrations'
 alias grepjs='grep --include="*.js" --exclude-dir=compress_tmp'
