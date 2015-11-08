@@ -2,3 +2,4 @@
 ~/.local/share/mc/skins/default.ini
 ~/.vimrc
 ~/.bashrc_extra
+/etc/apt/apt.conf.d/90recommends

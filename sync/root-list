@@ -2,3 +2,4 @@
 /etc/default/keyboard
 /etc/X11/xorg.conf.d/00-keyboard.conf
 /etc/X11/xorg.conf.d/10-software-cursor.conf
+/etc/apt/apt.conf.d/90recommends
