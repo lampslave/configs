@@ -49,7 +49,7 @@ alias glog='git log --graph --decorate --all'
 
 alias flake88='flake8 --ignore=E501'
 
-alias grep='/bin/grep --color --exclude-dir=media'
+alias grep='/bin/grep --color --exclude-dir=media --exclude-dir=.idea'
 alias greptxt='grep --include="*.txt"'
 alias greppy='grep --include="*.py" --exclude-dir=migrations'
 alias grepjs='grep --include="*.js" --exclude-dir=compress_tmp'
