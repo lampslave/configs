@@ -66,7 +66,7 @@ for item in args.list:
     left = item_fs
     right = item_git
 
-    print('{} <||> {}'.format(left, right))
+    print('{}\n{}\n'.format(left, right))
 
     if args.diff or args.merge:
         if isfile(left) and isfile(right) and filecmp.cmp(left, right):
